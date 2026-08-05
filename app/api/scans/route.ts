@@ -1,0 +1,2 @@
+import{projectId,proxy}from"../_scanner";
+export async function POST(request:Request){const body=await request.json();const upstream=await proxy("/v1/scans",{method:"POST",body:JSON.stringify({...body,projectId:projectId(),debugMode:Boolean(body.debugMode)})});return new Response(upstream.body,{status:upstream.status,headers:{"content-type":upstream.headers.get("content-type")||"application/json"}})}
