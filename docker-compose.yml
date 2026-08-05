@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment: { POSTGRES_DB: phyniqs, POSTGRES_USER: phyniqs, POSTGRES_PASSWORD: phyniqs-local }
+    volumes: ["postgres_data:/var/lib/postgresql/data"]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U phyniqs"], interval: 5s, timeout: 5s, retries: 10 }
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: ["redis_data:/data"]
+    healthcheck: { test: ["CMD", "redis-cli", "ping"], interval: 5s, timeout: 3s, retries: 10 }
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address :9001
+    environment: { MINIO_ROOT_USER: phyniqs, MINIO_ROOT_PASSWORD: phyniqs-local-secret }
+    volumes: ["object_data:/data"]
+    ports: ["9000:9000", "9001:9001"]
+  scanner-api:
+    build: { context: ., dockerfile: services/scanner/Dockerfile }
+    command: ["sh", "-c", "node dist/migrate.js && node dist/server.js"]
+    env_file: ["services/scanner/.env"]
+    ports: ["8080:8080"]
+    depends_on: { postgres: { condition: service_healthy }, redis: { condition: service_healthy } }
+  scanner-worker:
+    build: { context: ., dockerfile: services/scanner/Dockerfile }
+    command: ["node", "dist/worker.js"]
+    env_file: ["services/scanner/.env"]
+    shm_size: 1gb
+    depends_on: { postgres: { condition: service_healthy }, redis: { condition: service_healthy }, scanner-api: { condition: service_started } }
+volumes: { postgres_data: {}, redis_data: {}, object_data: {} }

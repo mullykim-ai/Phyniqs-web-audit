@@ -1,0 +1,3 @@
+import{scannerHeaders,scannerUrl}from"../../../_scanner";
+export const dynamic="force-dynamic";
+export async function GET(_:Request,{params}:{params:Promise<{id:string}>}){try{const{id}=await params;const upstream=await fetch(scannerUrl(`/v1/scans/${encodeURIComponent(id)}/events`),{headers:scannerHeaders(),signal:AbortSignal.timeout(86_400_000)});return new Response(upstream.body,{status:upstream.status,headers:{"content-type":"text/event-stream","cache-control":"no-cache, no-transform","x-accel-buffering":"no"}})}catch(error){return Response.json({error:error instanceof Error?error.message:"Progress stream unavailable"},{status:503})}}
