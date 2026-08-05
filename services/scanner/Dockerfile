@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.55.0-noble AS build
+FROM mcr.microsoft.com/playwright:v1.62.1-noble AS build
 WORKDIR /app
 COPY services/scanner/package*.json ./
 RUN npm ci
@@ -6,7 +6,7 @@ COPY services/scanner/tsconfig.json ./
 COPY services/scanner/src ./src
 RUN npm run build && npm prune --omit=dev
 
-FROM mcr.microsoft.com/playwright:v1.55.0-noble
+FROM mcr.microsoft.com/playwright:v1.62.1-noble
 ENV NODE_ENV=production PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
