@@ -2,6 +2,14 @@
 
 Phyniqs is a browser-rendered typography intelligence platform. The repository contains the hosted dashboard and API gateway, the Railway Playwright scanner, and native desktop/mobile clients that use the same scan data.
 
+## App store typography scans
+
+The New Scan workspace supports full website crawls, Apple App Store listings, and Google Play listings. Store scans validate that the URL belongs to the official store, render the listing with Playwright, wait for its fonts, extract computed typography, capture app metadata, and copy preview assets into private object storage.
+
+Reports distinguish exact rendered evidence from raster preview evidence. Computed styles, FontFaceSet entries, and network font resources are exact evidence for the listing page. App preview screenshots are preserved for visual review but are never misrepresented as an exact font-family result because raster images do not contain font metadata.
+
+Exact typography inside an installed native application requires a signed test build or APK/IPA and remains a separate native inspection workflow.
+
 ## Applications
 
 - `app/`: existing Next-compatible dashboard and API gateway.

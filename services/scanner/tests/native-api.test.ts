@@ -7,14 +7,14 @@ const server = readFileSync(fileURLToPath(new URL("../src/server.ts", import.met
 
 describe("native client API", () => {
   it("uses an independent native token and never exposes the service token", () => {
-    expect(server).toContain('req.url.startsWith("/api/native/")?config.PHYNIQS_NATIVE_API_TOKEN:config.SERVICE_API_TOKEN');
-    expect(server).toContain('authorization:`Bearer ${config.SERVICE_API_TOKEN}`');
+    expect(server).toMatch(/req\.url\.startsWith\("\/api\/native\/"\)[\s\S]*config\.PHYNIQS_NATIVE_API_TOKEN[\s\S]*config\.SERVICE_API_TOKEN/);
+    expect(server).toMatch(/authorization:\s*`Bearer \$\{config\.SERVICE_API_TOKEN\}`/);
   });
 
   it("provides scan creation, progress and PDF routes", () => {
     expect(server).toContain('app.post("/api/native/scans"');
     expect(server).toContain('app.get("/api/native/scans/:id"');
-    expect(server).toContain('app.post("/api/native/report"');
+    expect(server).toMatch(/app\.post\(\s*"\/api\/native\/report"/);
   });
 
   it("creates a valid detailed PDF without screenshots", async () => {

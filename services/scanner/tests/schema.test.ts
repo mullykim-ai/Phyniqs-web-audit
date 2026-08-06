@@ -6,6 +6,7 @@ const migration = readFileSync(
   fileURLToPath(new URL("../sql/001_initial.sql", import.meta.url)),
   "utf8",
 );
+const appMigration = readFileSync(fileURLToPath(new URL("../sql/002_app_store_scans.sql",import.meta.url)),"utf8");
 
 describe("scanner persistence migration", () => {
   it.each([
@@ -26,4 +27,6 @@ describe("scanner persistence migration", () => {
     expect(migration).toContain("discovered_fonts_scan_family_idx");
     expect(migration).not.toContain("UNIQUE(project_id,lower(family))");
   });
+
+  it("persists store scan metadata and preview assets",()=>{expect(appMigration).toContain("scan_type");expect(appMigration).toContain("source_metadata");expect(appMigration).toMatch(/CREATE TABLE IF NOT EXISTS store_assets\b/)});
 });
