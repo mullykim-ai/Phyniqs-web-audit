@@ -1,5 +1,5 @@
 type RiskFinding={font:string;fontFamily:string;text:string;tag:string;xpath:string;selector:string;fontSize:string;fontWeight:string;fontStyle:string};
-type PageResult={url:string;title:string;fonts:string[];riskCount:number;risks:RiskFinding[];screenshotUrl?:string|null};
+type PageResult={url:string;title:string;status?:string;fonts:string[];riskCount:number;risks:RiskFinding[];screenshotUrl?:string|null};
 type Report={url:string;fonts:string[];riskFonts:string[];riskCount:number;pages:PageResult[];scannedAt:string;durationMs:number};
 type ImageData={bytes:Uint8Array;width:number;height:number};
 const ascii=(value:string)=>new TextEncoder().encode(value);
