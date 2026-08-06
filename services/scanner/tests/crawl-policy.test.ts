@@ -26,9 +26,9 @@ describe("HTML-only crawl policy",()=>{
   });
 
   it("records a failed page instead of aborting the entire crawl",()=>{
-    expect(scanner).toContain('title:"Page unavailable"');
-    expect(scanner).toContain('pageFailed:true');
-    expect(scanner).toContain('failed?"FAILED":"COMPLETED"');
-    expect(scanner).toContain("attempt<3");
+    expect(scanner).toMatch(/title:\s*"Page unavailable"/);
+    expect(scanner).toMatch(/pageFailed:\s*true/);
+    expect(scanner).toMatch(/failed\s*\?\s*"FAILED"\s*:\s*"COMPLETED"/);
+    expect(scanner).toMatch(/attempt\s*<\s*3/);
   });
 });
