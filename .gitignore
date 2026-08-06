@@ -38,6 +38,8 @@ yarn-error.log*
 
 **/dist/
 **/node_modules/
+**/target/
+**/src-tauri/gen/
 *.tsbuildinfo
 services/scanner/tests/*.js
 /.wrangler/
