@@ -5,7 +5,7 @@ const stored = (key: string, fallback = "") => localStorage.getItem(key) ?? fall
 
 export default function App() {
   const [apiUrl, setApiUrl] = useState(() => stored("phyniqs-api-url", "https://scanner-api-production-1a02.up.railway.app"));
-  const [token, setToken] = useState(() => stored("phyniqs-api-token"));
+  const [token, setToken] = useState("");
   const [siteUrl, setSiteUrl] = useState("https://example.com");
   const [risky, setRisky] = useState("");
   const [maxPages, setMaxPages] = useState(100);
@@ -18,7 +18,7 @@ export default function App() {
     if (!client) return setMessage("Enter a valid API address and access token");
     setBusy(true); setResult(null);
     try {
-      localStorage.setItem("phyniqs-api-url", apiUrl); localStorage.setItem("phyniqs-api-token", token);
+      localStorage.setItem("phyniqs-api-url", apiUrl);
       const job = await client.createScan({ url: siteUrl, maxPages, riskyFonts: risky.split(",").map(x => x.trim()).filter(Boolean), debugMode: true });
       const complete = await client.waitForScan(job.id, value => { setResult(value); setMessage(`${value.status} · ${value.progress}%`); });
       setMessage(`Completed · ${complete.pages.length} pages · ${complete.fonts.length} fonts`);

@@ -4,6 +4,6 @@
   "version": "0.1.0",
   "identifier": "online.phyniqscrawler.auditor",
   "build": { "beforeDevCommand": "node ../../node_modules/vite/bin/vite.js", "devUrl": "http://localhost:1420", "beforeBuildCommand": "node ../../node_modules/typescript/bin/tsc && node ../../node_modules/vite/bin/vite.js build", "frontendDist": "../dist" },
-  "app": { "windows": [{ "title": "Phyniqs Web Auditor", "width": 1280, "height": 820, "minWidth": 900, "minHeight": 650, "resizable": true }], "security": { "csp": "default-src 'self'; connect-src 'self' https://*.chatgpt.site https://phyniqscrawler.online; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com" } },
+  "app": { "windows": [{ "title": "Phyniqs Web Auditor", "width": 1280, "height": 820, "minWidth": 900, "minHeight": 650, "resizable": true }], "security": { "csp": "default-src 'self'; connect-src 'self' https://*.up.railway.app https://*.chatgpt.site https://phyniqscrawler.online; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com" } },
   "bundle": { "active": true, "targets": ["app"], "category": "DeveloperTool", "shortDescription": "Native typography intelligence and website font auditing" }
 }
