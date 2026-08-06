@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "Phyniqs Web Auditor",
+    "slug": "phyniqs-web-auditor",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "phyniqs",
+    "ios": { "supportsTablet": true, "bundleIdentifier": "online.phyniqscrawler.auditor" },
+    "android": { "package": "online.phyniqscrawler.auditor", "adaptiveIcon": { "backgroundColor": "#000000" } },
+    "plugins": ["expo-secure-store"]
+  }
+}

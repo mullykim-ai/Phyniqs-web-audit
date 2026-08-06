@@ -1,8 +1,64 @@
-# vinext-starter
+# Phyniqs Web Auditor
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+Phyniqs is a browser-rendered typography intelligence platform. The repository contains the hosted dashboard and API gateway, the Railway Playwright scanner, and native desktop/mobile clients that use the same scan data.
+
+## Applications
+
+- `app/`: existing Next-compatible dashboard and API gateway.
+- `services/scanner/`: Dockerized Playwright API and background worker for Railway.
+- `packages/core/`: shared TypeScript contracts and authenticated API client.
+- `apps/desktop/`: Tauri 2 application for macOS and Windows.
+- `apps/mobile/`: Expo/React Native application for iOS and Android.
+
+The native applications never connect directly to PostgreSQL, Redis, object storage, or privileged scanner routes. They use the separately authenticated `/api/native` surface on Railway's `scanner-api`; the internal service token is never exposed.
+
+## Native API setup
+
+Generate a strong token and set the same value only in the hosted dashboard environment and in each authorized native installation:
+
+```bash
+openssl rand -hex 32
+```
+
+Configure the resulting value as `PHYNIQS_NATIVE_API_TOKEN` on Railway's `scanner-api` service. Users enter it once in the desktop or mobile app. Mobile stores it in the operating system secure credential store. Rotate the token immediately if a device is lost.
+
+Native endpoints:
+
+- `POST /api/native/scans` — enqueue a real Playwright scan.
+- `GET /api/native/scans/:id` — retrieve progress and completed typography evidence.
+- `POST /api/native/report` — generate the detailed PDF report with screenshots.
+
+## Desktop development
+
+Prerequisites are Node.js 22, Rust stable, and the platform-specific Tauri prerequisites.
+
+```bash
+npm install --prefix apps/desktop
+npm --prefix apps/desktop run tauri -- dev
+```
+
+Use `npm --prefix apps/desktop run build` to validate the React application. Enable Tauri bundling and add signing identities when producing store or enterprise installers.
+
+## Mobile development
+
+Install Expo Go on a test phone, then run:
+
+```bash
+npm install --prefix apps/mobile
+npm --prefix apps/mobile run start
+```
+
+Use an Expo development build for production testing. The bundle identifiers are `online.phyniqscrawler.auditor` on iOS and Android. App Store and Play Store signing credentials are intentionally supplied through the respective secure build systems, never committed to this repository.
+
+## Verify all clients
+
+```bash
+npm run build
+npm run native:check
+npm test --prefix services/scanner
+```
+
+The web dashboard runs on [vinext](https://github.com/cloudflare/vinext).
 
 ## Prerequisites
 

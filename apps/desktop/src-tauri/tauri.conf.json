@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Phyniqs Web Auditor",
+  "version": "0.1.0",
+  "identifier": "online.phyniqscrawler.auditor",
+  "build": { "beforeDevCommand": "npm run dev", "devUrl": "http://localhost:1420", "beforeBuildCommand": "npm run build", "frontendDist": "../dist" },
+  "app": { "windows": [{ "title": "Phyniqs Web Auditor", "width": 1280, "height": 820, "minWidth": 900, "minHeight": 650, "resizable": true }], "security": { "csp": "default-src 'self'; connect-src 'self' https://*.chatgpt.site https://phyniqscrawler.online; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com" } },
+  "bundle": { "active": false }
+}
