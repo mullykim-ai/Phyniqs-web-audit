@@ -4,7 +4,7 @@ import { PhyniqsClient, type ScanResult } from "@phyniqs/core";
 const stored = (key: string, fallback = "") => localStorage.getItem(key) ?? fallback;
 
 export default function App() {
-  const [apiUrl, setApiUrl] = useState(() => stored("phyniqs-api-url", "https://tembolic-compliance-auditor.mullykim428477.chatgpt.site"));
+  const [apiUrl, setApiUrl] = useState(() => stored("phyniqs-api-url", "https://scanner-api-production-1a02.up.railway.app"));
   const [token, setToken] = useState(() => stored("phyniqs-api-token"));
   const [siteUrl, setSiteUrl] = useState("https://example.com");
   const [risky, setRisky] = useState("");

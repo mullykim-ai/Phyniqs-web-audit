@@ -10,7 +10,7 @@ Phyniqs is a browser-rendered typography intelligence platform. The repository c
 - `apps/desktop/`: Tauri 2 application for macOS and Windows.
 - `apps/mobile/`: Expo/React Native application for iOS and Android.
 
-The native applications never connect directly to PostgreSQL, Redis, object storage, or the scanner service. They use `/api/native`, which keeps Railway credentials on the server.
+The native applications never connect directly to PostgreSQL, Redis, object storage, or privileged scanner routes. They use the separately authenticated `/api/native` surface on Railway's `scanner-api`; the internal service token is never exposed.
 
 ## Native API setup
 
@@ -20,7 +20,7 @@ Generate a strong token and set the same value only in the hosted dashboard envi
 openssl rand -hex 32
 ```
 
-Configure the resulting value as `PHYNIQS_NATIVE_API_TOKEN` on the dashboard deployment. Users enter it once in the desktop or mobile app. Mobile stores it in the operating system secure credential store. Rotate the token immediately if a device is lost.
+Configure the resulting value as `PHYNIQS_NATIVE_API_TOKEN` on Railway's `scanner-api` service. Users enter it once in the desktop or mobile app. Mobile stores it in the operating system secure credential store. Rotate the token immediately if a device is lost.
 
 Native endpoints:
 

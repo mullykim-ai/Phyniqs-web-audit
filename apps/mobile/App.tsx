@@ -6,7 +6,7 @@ import { PhyniqsClient, type ScanPage, type ScanResult } from "@phyniqs/core";
 
 const API_KEY = "phyniqs.native.api";
 const TOKEN_KEY = "phyniqs.native.token";
-const defaultApi = "https://tembolic-compliance-auditor.mullykim428477.chatgpt.site";
+const defaultApi = "https://scanner-api-production-1a02.up.railway.app";
 
 export default function App() {
   const [apiUrl, setApiUrl] = useState(defaultApi); const [token, setToken] = useState("");
